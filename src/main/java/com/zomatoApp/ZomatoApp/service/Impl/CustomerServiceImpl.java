@@ -11,6 +11,7 @@ import com.zomatoApp.ZomatoApp.strategy.Impl.RestaurantMatchingStrategyFindNeare
 import com.zomatoApp.ZomatoApp.strategy.RestaurantManager;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
@@ -102,10 +103,10 @@ public class CustomerServiceImpl implements CustomerService {
     }
     public Customer getCurrentCustomer()
     {
-        //TODO create Customer using SecurityContextHolder
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Customer customer = Customer.builder()
-                .id(1L)
+                .user(user)
                 .build();
-        return null;
+        return customer;
     }
 }
